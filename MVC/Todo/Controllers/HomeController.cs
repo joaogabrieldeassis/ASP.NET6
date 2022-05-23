@@ -1,15 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
+using Todo.Data;
+using Todo.Models;
 
-namespace Todo.Contollers
+namespace Todo.Controllers
 {
     [ApiController]
-    public class HomeContoller : ControllerBase
+    public class HomeController : ControllerBase
     {
         [HttpGet]
-        [Route("/")]
-        public string Get()
+        [Route("/joao")]
+        public List<TodoModel> Get([FromServices] AppDbContext context)
         {
-            return "João é lindão";
+
+            return context.Todos.ToList();
         }
     }
 }
