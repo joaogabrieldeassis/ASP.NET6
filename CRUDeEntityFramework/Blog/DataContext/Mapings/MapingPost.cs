@@ -18,7 +18,7 @@ namespace Blog.DataContext.Mapings
             .IsRequired()
             .HasColumnName("LastUpdateDate")
             .HasColumnType("SMALLDATETIME")
-            .HasDefaultValueSql("GETDATE");
+            .HasDefaultValueSql("GETDATE()");
 
             builder.HasIndex(x => x.Slug, "IX_Post_Slug")
             .IsUnique();
