@@ -62,9 +62,6 @@ namespace Todo.Controllers
             context.Todos.Remove(model);
             context.SaveChanges();
             return Ok(model);
-
-
-
         }
     }
 }

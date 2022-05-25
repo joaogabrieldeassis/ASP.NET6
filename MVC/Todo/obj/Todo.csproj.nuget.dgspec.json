@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\asp.net6\\mvc\\todo\\Todo.csproj": {}
+    "C:\\ASP.NET6\\mvc\\todo\\Todo.csproj": {}
   },
   "projects": {
-    "C:\\asp.net6\\mvc\\todo\\Todo.csproj": {
+    "C:\\ASP.NET6\\mvc\\todo\\Todo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\asp.net6\\mvc\\todo\\Todo.csproj",
+        "projectUniqueName": "C:\\ASP.NET6\\mvc\\todo\\Todo.csproj",
         "projectName": "Todo",
-        "projectPath": "C:\\asp.net6\\mvc\\todo\\Todo.csproj",
+        "projectPath": "C:\\ASP.NET6\\mvc\\todo\\Todo.csproj",
         "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
-        "outputPath": "C:\\asp.net6\\mvc\\todo\\obj\\",
+        "outputPath": "C:\\ASP.NET6\\mvc\\todo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config",
