@@ -4,11 +4,10 @@ namespace Blog.Controllers
 {
     [ApiController]
     [Route("")]
-    public class HomeControler : ControllerBase
+    public class HomeController : ControllerBase
     {
         [HttpGet("")]
-       
-        public IActionResult GET()
+        public IActionResult Get()
         {
             return Ok();
         }
