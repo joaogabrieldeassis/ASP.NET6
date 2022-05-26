@@ -1,24 +1,24 @@
 ﻿using Blog.DataContext;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Controllers
 {
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        [HttpGet("categories")]
-        public IActionResult Get([FromServices] BlogDataContext context)
+        [HttpGet("v1/categories")] //v1 = verssão 1 dp meu app
+        public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
-            var categories = Ok(context.Categories.ToList());
+            var categories = await context.Categories.ToListAsync();
             return Ok(categories);
         }
-        [HttpPost("categories")]
-        public IActionResult Post([FromBody] Category category, [FromServices] BlogDataContext context)
+        [HttpGet("v1/categories/{id:int}")]
+        public async Task<IActionResult> GetByIdAssync( [FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            context.Categories.Add(category);
-            context.SaveChanges();
-            return Created($"/{category.Id}",category);
+            var categories = await context.Categories.ToListAsync();
+            return Ok(categories);
         }
     }
 }
