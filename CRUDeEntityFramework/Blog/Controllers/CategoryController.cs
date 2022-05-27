@@ -33,10 +33,21 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody]Category model, [FromServices] BlogDataContext context)
         {
-            await context.Categories.AddAsync(model); //Esperar salvar
-            await context.SaveChangesAsync();//Esperar salvar
+            try
+            {
+                await context.Categories.AddAsync(model); //Esperar salvar
+                await context.SaveChangesAsync();//Esperar salvar
 
-            return Created($"v1/categories/{model.Id}",model);
+                return Created($"v1/categories/{model.Id}", model);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "X12-Y Falha ao tentar inserir dados na categoria");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Falha ao inserir dados");
+            }
         }
 
 
@@ -58,17 +69,24 @@ namespace Blog.Controllers
         }
 
         //Delete
-        [HttpDelete("v1/categories/{id:int}")] 
-        public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromBody] Category model, [FromServices] BlogDataContext context)
+        [HttpDelete("v1/categories/{id:int}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            var receiveDelete = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);  //Esperar deletar
-            if (receiveDelete == null)
-                return NotFound();
+            try
+            {
+                var receiveDelete = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);  //Esperar deletar
+                if (receiveDelete == null)
+                    return NotFound();
 
-            context.Categories.Remove(receiveDelete);
-            await context.SaveChangesAsync();
+                context.Categories.Remove(receiveDelete);
+                await context.SaveChangesAsync();
 
-            return Ok(receiveDelete);
+                return Ok(receiveDelete);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(415, "Falaha ao escluir um usuario");
+            }
         }
 
     }
