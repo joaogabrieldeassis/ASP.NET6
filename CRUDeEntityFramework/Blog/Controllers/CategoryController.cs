@@ -55,17 +55,29 @@ namespace Blog.Controllers
         [HttpPut("v1/categories/{id:int}")]
         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Category model, [FromServices] BlogDataContext context)
         {
-            var receivePut = await context.Categories.FirstOrDefaultAsync(x=>x.Id == id);   //Esperar Atualizar 
-            if (receivePut == null)
-                return NotFound();
+            try
+            {
+                var receivePut = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);   //Esperar Atualizar 
+                if (receivePut == null)
+                    return NotFound();
 
-            receivePut.Name = model.Name;
-            receivePut.Slug = model.Slug;
+                receivePut.Name = model.Name;
+                receivePut.Slug = model.Slug;
 
-            context.Categories.Update(receivePut);
-            await context.SaveChangesAsync();
+                context.Categories.Update(receivePut);
+                await context.SaveChangesAsync();
 
-            return Ok(receivePut);
+                return Ok(receivePut);
+            }
+            catch (DbUpdateException ex)
+            {
+
+                return StatusCode(500, "X1908-4 Falha ao atualizar a tabela ");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "X1454-1 Falha ao Atualizar");
+            }
         }
 
         //Delete
@@ -83,9 +95,13 @@ namespace Blog.Controllers
 
                 return Ok(receiveDelete);
             }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(415, "SWE12-X Falaha ao escluir um usuario, verifique o Id inserido");
+            }
             catch (Exception ex)
             {
-                return StatusCode(415, "Falaha ao escluir um usuario");
+                return StatusCode(500, "D45T-F Falaha ao escluir um usuario ");
             }
         }
 
