@@ -38,7 +38,6 @@ namespace Blog.Controllers
             {
                 var category = new Category()
                 {
-                    Id=0,
                     Name=model.Name,
                     Slug=model.Slug.ToLower(),
                 };
