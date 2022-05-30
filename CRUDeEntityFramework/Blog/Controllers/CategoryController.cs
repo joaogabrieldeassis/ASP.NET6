@@ -24,7 +24,7 @@ namespace Blog.Controllers
             catch (Exception ex)
             {
 
-                return StatusCode(500, "45V-$ Falha ao encontrar o servidor");
+                return StatusCode(500,new ResultViewModel<List<Category>>("45V-$ Falha ao encontrar o servidor"));
             }
            
         }
