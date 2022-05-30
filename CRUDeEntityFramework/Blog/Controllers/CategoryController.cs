@@ -16,24 +16,37 @@ namespace Blog.Controllers
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
             var categories = await context.Categories.ToListAsync();
-            return Ok(categories);
+            //Vai retornar os dados do usuario da minha classe ResultViewModel
+            return Ok(new ResultViewModel<List<Category>>(categories));
         }
 
         //Read
         [HttpGet("v1/categories/{id:int}")]
         public async Task<IActionResult> GetByIdAsync( [FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            var category = await context.Categories.FirstOrDefaultAsync(x=>x.Id == id);
-            if (category == null)
-                return NotFound();
+            try
+            {
+                var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                if (category == null)
+                    return NotFound();
 
-            return Ok(category);
+                return Ok(category);
+            }
+            //Esse catch vai vim do minha classe ResultViewModel do metodo de adicioanar erro
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResultViewModel<List<Category>>("47D-5 Usuario não encontrado"));
+            }
+           
         }
 
         //Create
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
             try
             {
                 var category = new Category()

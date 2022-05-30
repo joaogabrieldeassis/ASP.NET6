@@ -1,6 +1,10 @@
 using Blog.DataContext;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+//Desabilitar a validação automatica da minha api
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});   ;
 builder.Services.AddDbContext<BlogDataContext>();
 var app = builder.Build();
 

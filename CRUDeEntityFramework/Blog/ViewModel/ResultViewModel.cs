@@ -4,16 +4,16 @@
     {
        
 
-        //Método para receber a data, e uma lista de erros
-        public ResultViewModel(T data, List<string> erros)
+        //Método para receber os dados, e uma lista de erros
+        public ResultViewModel(T dados, List<string> erros)
         {
-            Data = data;
+            Dados = dados;
             Erros = erros;
         }
-        //Método para receber os dados se derem certo
-        public ResultViewModel(T data)
+        //Método para receber só os dados se derem certo
+        public ResultViewModel(T dados)
         {
-            Data=data;
+            Dados = dados;
         }
         //Metodo para retornar so os erros
         public  ResultViewModel(List<string> erros)
@@ -28,7 +28,7 @@
         }
              
         //Não quero que ninguem passe nenhum valor para essa propriedade por isso coloquei o set
-        public T Data { get; private set; }
+        public T Dados { get; private set; }
         public List<string> Erros { get; private set; } = new List<string>();
 
     }
