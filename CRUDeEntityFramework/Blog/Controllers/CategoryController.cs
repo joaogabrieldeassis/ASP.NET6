@@ -15,9 +15,18 @@ namespace Blog.Controllers
         [HttpGet("v1/categories")] //v1 = verssão 1 dp meu app
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
-            var categories = await context.Categories.ToListAsync();
-            //Vai retornar os dados do usuario da minha classe ResultViewModel
-            return Ok(new ResultViewModel<List<Category>>(categories));
+            try
+            {
+                var categories = await context.Categories.ToListAsync();
+                //Vai retornar os dados do usuario da minha classe ResultViewModel
+                return Ok(new ResultViewModel<List<Category>>(categories));
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, "45V-$ Falha ao encontrar o servidor");
+            }
+           
         }
 
         //Read
