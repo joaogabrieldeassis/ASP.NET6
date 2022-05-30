@@ -21,7 +21,7 @@ namespace Blog.Controllers
                 //Vai retornar os dados do usuario da minha classe ResultViewModel
                 return Ok(new ResultViewModel<List<Category>>(categories));
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return StatusCode(500,new ResultViewModel<List<Category>>("45V-$ Falha ao encontrar o servidor"));
@@ -37,15 +37,15 @@ namespace Blog.Controllers
             {
                 var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
                 if (category == null)
-                    return NotFound();
+                    return NotFound(new ResultViewModel<Category>("Usuario não encontrado"));
 
-                return Ok(category);
+                return Ok(new ResultViewModel<Category>(category));
             }
             //Esse catch vai vim do minha classe ResultViewModel do metodo de adicioanar erro
-            catch (Exception ex)
+            catch 
             {
 
-                return StatusCode(500, new ResultViewModel<List<Category>>("47D-5 Usuario não encontrado"));
+                return StatusCode(500, new ResultViewModel<List<Category>>("Falha interna no servidor"));
             }
            
         }
