@@ -55,7 +55,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> PostAsync([FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState.Values);
             try
             {
                 var category = new Category()
