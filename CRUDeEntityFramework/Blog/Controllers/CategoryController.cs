@@ -68,15 +68,15 @@ namespace Blog.Controllers
                 await context.Categories.AddAsync(category); //Esperar salvar
                 await context.SaveChangesAsync();//Esperar salvar
 
-                return Created($"v1/categories/{category.Id}", category);
+                return Created($"v1/categories/{category.Id}", new ResultViewModel<Category>(category));
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(500, "X12-Y Falha ao tentar inserir dados na categoria");
+                return StatusCode(500, new ResultViewModel<Category>("X12-Y Falha ao tentar inserir dados na categoria"));
             }
-            catch (Exception ex)
+            catch 
             {
-                return StatusCode(500, "Falha ao inserir dados");
+                return StatusCode(500, new ResultViewModel<Category>("Falha ao inserir dados"));
             }
         }
 
@@ -89,7 +89,7 @@ namespace Blog.Controllers
             {
                 var receivePut = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);   //Esperar Atualizar 
                 if (receivePut == null)
-                    return NotFound();
+                    return NotFound(new ResultViewModel<Category>("Conteudo não encontrado"));
 
                 receivePut.Name = model.Name;
                 receivePut.Slug = model.Slug;
@@ -97,16 +97,16 @@ namespace Blog.Controllers
                 context.Categories.Update(receivePut);
                 await context.SaveChangesAsync();
 
-                return Ok(receivePut);
+                return Ok(new ResultViewModel<Category>(receivePut));
             }
             catch (DbUpdateException ex)
             {
 
-                return StatusCode(500, "X1908-4 Falha ao atualizar a tabela ");
+                return StatusCode(500, new ResultViewModel<Category>("X1908-4 Falha ao atualizar a tabela "));
             }
-            catch(Exception ex)
+            catch
             {
-                return StatusCode(500, "X1454-1 Falha ao Atualizar");
+                return StatusCode(500, new ResultViewModel<Category>("X1454-1 Falha ao Atualizar"));
             }
         }
 
@@ -118,20 +118,20 @@ namespace Blog.Controllers
             {
                 var receiveDelete = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);  //Esperar deletar
                 if (receiveDelete == null)
-                    return NotFound();
+                    return NotFound(new ResultViewModel<Category>("Conteudo não encontrado"));
 
                 context.Categories.Remove(receiveDelete);
                 await context.SaveChangesAsync();
 
-                return Ok(receiveDelete);
+                return Ok(new ResultViewModel<Category>(receiveDelete));
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(415, "SWE12-X Falaha ao escluir um usuario, verifique o Id inserido");
+                return StatusCode(415, new ResultViewModel<Category>("SWE12-X Falaha ao escluir um usuario, verifique o Id inserido"));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "D45T-F Falaha ao escluir um usuario ");
+                return StatusCode(500, new ResultViewModel<Category>("D45T-F Falaha ao escluir um usuario "));
             }
         }
 
