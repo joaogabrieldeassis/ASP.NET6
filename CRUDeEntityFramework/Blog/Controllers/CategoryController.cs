@@ -1,4 +1,5 @@
 ﻿using Blog.DataContext;
+using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -54,8 +55,9 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
         {
+            //Esse return irá vir lá do meu metodo GetErros 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.Values);
+                return BadRequest(new ResultViewModel<Category>(ModelState.GetErros()));
             try
             {
                 var category = new Category()
