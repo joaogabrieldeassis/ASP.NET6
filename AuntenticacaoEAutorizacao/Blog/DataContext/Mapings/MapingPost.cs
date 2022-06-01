@@ -7,9 +7,10 @@ namespace Blog.DataContext.Mapings
     public class MapingPost : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> builder)
-        {
+        { 
             builder.ToTable("Post");
             builder.HasKey(x => x.Id);
+
             builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
             .UseIdentityColumn();
