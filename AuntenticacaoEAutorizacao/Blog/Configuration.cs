@@ -1,6 +1,11 @@
-﻿namespace Blog;
-    public class Configuration
+﻿
+namespace Blog
+{
+    public static class Configuration
     {
-    public string JWTKey { get; set; } = "AZBFGh8iPoKwXmYV46fUsJ9r";
+        public static string JwtKey { get; set; } = "AZBFGh8iPoKwXmYV46fUsJ9r";
+    }
+
 }
+
 
