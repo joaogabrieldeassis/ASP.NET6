@@ -16,6 +16,7 @@ namespace Blog.Controllers
         [HttpGet("v1/categories")] //v1 = verssão 1 dp meu app
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
+            User.IsInRole("admin");
             try
             {
                 var categories = await context.Categories.ToListAsync();
