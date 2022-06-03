@@ -21,8 +21,6 @@ namespace Blog.Services;
                 new ("Fruta", "Banana")
             }),
                  Expires = DateTime.UtcNow.AddHours(8),
-                
-
                  SigningCredentials = new SigningCredentials
                  (
                   new SymmetricSecurityKey(key),
