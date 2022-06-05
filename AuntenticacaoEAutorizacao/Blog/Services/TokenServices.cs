@@ -16,6 +16,7 @@ namespace Blog.Services;
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
+                new (ClaimTypes.Name, "Mariana Linda"),
                 new (ClaimTypes.Name, "João Gabriel"),
                 new (ClaimTypes.Role, "adimin"),
                 new ("Fruta", "Banana")

@@ -110,3 +110,4 @@ C:\ASP.NET6\AuntenticacaoEAutorizacao\Blog\obj\Debug\net6.0\refint\Blog.dll
 C:\ASP.NET6\AuntenticacaoEAutorizacao\Blog\obj\Debug\net6.0\Blog.pdb
 C:\ASP.NET6\AuntenticacaoEAutorizacao\Blog\obj\Debug\net6.0\Blog.genruntimeconfig.cache
 C:\ASP.NET6\AuntenticacaoEAutorizacao\Blog\obj\Debug\net6.0\ref\Blog.dll
+C:\ASP.NET6\AuntenticacaoEAutorizacao\Blog\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
