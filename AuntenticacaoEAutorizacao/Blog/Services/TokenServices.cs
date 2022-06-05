@@ -16,10 +16,11 @@ namespace Blog.Services;
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new (ClaimTypes.Name, "Mariana Linda"),
-                new (ClaimTypes.Name, "João Gabriel"),
-                new (ClaimTypes.Role, "adimin"),
-                new ("Fruta", "Banana")
+                new (ClaimTypes.Name, "Mariana"),
+                new (ClaimTypes.Role, "user"),
+                new(ClaimTypes.Role, "author"),
+                new ("Fruta", "Banana"),
+                
             }),
                  Expires = DateTime.UtcNow.AddHours(8),
                  SigningCredentials = new SigningCredentials
