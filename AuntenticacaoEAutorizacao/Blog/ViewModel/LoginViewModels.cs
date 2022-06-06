@@ -2,14 +2,14 @@
 
 namespace Blog.ViewModel
 {
-    public class RegisterViewModel
+    public class LoginViewModels
     {
         [Required(ErrorMessage = "Nome obrigatorio")]
-        [StringLength(200,ErrorMessage = "Seu nome deve ter no máximo 200 letras")]
-        public string Name{ get; set; }
+        [StringLength(200, ErrorMessage = "Seu nome deve ter no máximo 200 letras")]
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Email obrigatorio")]
         [EmailAddress(ErrorMessage = "Email invalido")]
-        public string Email{ get; set; }
+        public string Email { get; set; }
     }
 }

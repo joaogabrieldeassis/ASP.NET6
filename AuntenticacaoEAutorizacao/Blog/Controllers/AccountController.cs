@@ -45,10 +45,12 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("v1/accounts/login")]
-    public IActionResult Login([FromServices] TokenServices tokenServices)
+    public IActionResult Login([FromBody]LoginViewModels login,[FromServices] BlogDataContext context, [FromServices] TokenServices tokenServices)
     {
-        var token = tokenServices.GenerateToken(null);
-        return Ok(token);
+        if (!ModelState.IsValid)
+        {
+
+        }
     }
 
 
