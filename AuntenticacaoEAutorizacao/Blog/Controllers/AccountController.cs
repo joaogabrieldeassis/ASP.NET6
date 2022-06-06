@@ -1,4 +1,6 @@
 ﻿using Blog.DataContext;
+using Blog.Extensions;
+using Blog.Models;
 using Blog.Services;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,15 @@ public class AccountController : ControllerBase
     [HttpPost("v1/accounts/")]
     public async Task<IActionResult> Post([FromBody] RegisterViewModel model,[FromServices] BlogDataContext context)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(new ResultViewModel<string>(ModelState.GetErros()));
 
+        var receiveUserRegistration = new User
+        {
+            Name = model.Name,
+            Email = model.Email,
+            Slug = model.Email.Replace("@", "-").Replace(".", "-")
+        };
     }
 
     [HttpPost("v1/accounts/login")]
