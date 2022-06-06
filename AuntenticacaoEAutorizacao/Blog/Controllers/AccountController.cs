@@ -4,6 +4,9 @@ using Blog.Models;
 using Blog.Services;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SecureIdentity.Password;
+
 namespace Blog.Controllers;
 
 [ApiController]
@@ -15,12 +18,30 @@ public class AccountController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(new ResultViewModel<string>(ModelState.GetErros()));
 
-        var receiveUserRegistration = new User
+        var user = new User
         {
             Name = model.Name,
             Email = model.Email,
             Slug = model.Email.Replace("@", "-").Replace(".", "-")
         };
+        var receivePassword = PasswordGenerator.Generate(25,includeSpecialChars:true,upperCase:true);
+        user.PassWordHash = PasswordHasher.Hash(receivePassword);
+        try
+        {
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+            return Ok(new ResultViewModel<dynamic>(new {
+            user = user.Email, receivePassword
+            }));
+        }
+        catch (DbUpdateException )
+        {
+            return StatusCode(400, new ResultViewModel<string>("456_X - Este Email já esta cadastrado"));
+        }
+        catch
+        {
+            return StatusCode(500, new ResultViewModel<string>("456-D Falha interna ao cadastrar o usuario"));
+        }
     }
 
     [HttpPost("v1/accounts/login")]

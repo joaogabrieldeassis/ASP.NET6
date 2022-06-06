@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ulU+N3M2pK4O+bfw2OLDN6sesjCHikpHCd8WTMqLj0kplCODpOisfAPnM0WmBn1OkqG8pdIe64jruSB1sdj8/w==",
+  "dgSpecHash": "9HyXetcXO1JlhW9sRlXPko0Qk9c9QWz3ws0JUM7oqWJD7XS+j0Ufkj3wsP2Bv5OGrULHfQLjNQzAu1vg8DDBJQ==",
   "success": true,
   "projectFilePath": "C:\\ASP.NET6\\AuntenticacaoEAutorizacao\\Blog\\Blog.csproj",
   "expectedPackageFiles": [
@@ -51,6 +51,7 @@
     "C:\\Users\\Windows\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Windows\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Windows\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Windows\\.nuget\\packages\\secureidentity\\1.0.3\\secureidentity.1.0.3.nupkg.sha512",
     "C:\\Users\\Windows\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Windows\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Windows\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
