@@ -45,11 +45,33 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("v1/accounts/login")]
-    public IActionResult Login([FromBody]LoginViewModels login,[FromServices] BlogDataContext context, [FromServices] TokenServices tokenServices)
+    public async Task<IActionResult> Login([FromBody] LoginViewModels model, [FromServices] BlogDataContext context, [FromServices] TokenServices tokenServices)
     {
         if (!ModelState.IsValid)
+            return BadRequest(new ResultViewModel<string>(ModelState.GetErros()));
+
+        var user = await context
+            .Users
+            .AsNoTracking()
+            .Include(x => x.Roles)
+            .FirstOrDefaultAsync(x => x.Email == model.Email);
+        //Verificando se o usuario existe
+        if (user == null)
+            return StatusCode(401, new ResultViewModel<string>("Usuario ou senha invalidor"));
+
+        //Verificando se a senha é valida
+        if (!PasswordHasher.Verify(user.PassWordHash, model.Password))
+            return StatusCode(401, new ResultViewModel<string>("Usuario ou senha invalidos"));
+
+        try
+        {
+            var token = tokenServices.GenerateToken(user);
+            return Ok(new ResultViewModel<string>(token, null));
+        }
+        catch 
         {
 
+            return StatusCode(500, new ResultViewModel<string>("95qR - Falha interna no servidor"));
         }
     }
 

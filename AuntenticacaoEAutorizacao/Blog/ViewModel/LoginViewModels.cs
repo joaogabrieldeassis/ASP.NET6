@@ -6,10 +6,9 @@ namespace Blog.ViewModel
     {
         [Required(ErrorMessage = "Nome obrigatorio")]
         [StringLength(200, ErrorMessage = "Seu nome deve ter no máximo 200 letras")]
-        public string Name { get; set; }
+        public string Email{ get; set; }
 
-        [Required(ErrorMessage = "Email obrigatorio")]
-        [EmailAddress(ErrorMessage = "Email invalido")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Senha obrigatoria")]
+        public string Password { get; set; }
     }
 }
