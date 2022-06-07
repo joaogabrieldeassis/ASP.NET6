@@ -56,7 +56,7 @@ public class AccountController : ControllerBase
             .Include(x => x.Roles)
             .FirstOrDefaultAsync(x => x.Email == model.Email);
         //Verificando se o usuario existe
-        if (user == null)
+            if (user == null)
             return StatusCode(401, new ResultViewModel<string>("Usuario ou senha invalidor"));
 
         //Verificando se a senha é valida
