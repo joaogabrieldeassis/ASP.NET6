@@ -8,14 +8,16 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if (!context.HttpContext.Request.Query.TryGetValue(Configuration.Api_key, out var extractedApiKey))
+        if (!context.HttpContext.Request.Query.TryGetValue(Configuration.ApiKeyName, out var extractedApiKey))
         {
             context.Result = new ContentResult()
             {
                 StatusCode = 401,
                 Content = "ApiKey Não encontrada"
             };
+            return;
         }
+        
         if (!Configuration.ApiKey.Equals(extractedApiKey))
         {
             context.Result = new ContentResult
@@ -23,7 +25,7 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter
                 StatusCode = 403,
                 Content = "Acesso não autorizado"
             };
-
+            return ;
         }
         await next();
     }
