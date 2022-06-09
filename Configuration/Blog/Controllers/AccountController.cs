@@ -40,7 +40,7 @@ public class AccountController : ControllerBase
 
             return Ok(new ResultViewModel<dynamic>(new
             {
-            user = user.Email
+            user = user.Email,receivePassword
             }));
         }
         catch (DbUpdateException )

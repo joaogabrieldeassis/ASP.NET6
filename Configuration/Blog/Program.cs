@@ -6,15 +6,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-
-
-var app = builder.Build();
-LoadConfiguration(app);
 ConfigureAuthentication(builder);
 ConfigureMVC(builder);
 ConfigureServices(builder);
+
+var app = builder.Build();
+LoadConfiguration(app);
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -30,7 +28,7 @@ void LoadConfiguration (WebApplication app)
     Configuration.ApiKey = app.Configuration.GetValue<string>("ApiKey");
 
     var smtp = new Configuration.SmtpConfiguration();
-    app.Configuration.GetSection("SmtpConfiguration").Bind(smtp);
+    app.Configuration.GetSection("Smtp").Bind(smtp);
     Configuration.Smtp = smtp;
 }
 
