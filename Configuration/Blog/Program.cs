@@ -68,6 +68,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 {
     builder.Services.AddDbContext<BlogDataContext>();
     builder.Services.AddTransient<TokenServices>();
+    builder.Services.AddTransient<EmailServices>();
 }
 
 //Curso
