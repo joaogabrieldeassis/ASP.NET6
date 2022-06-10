@@ -6,7 +6,7 @@ namespace Blog
         public static string JwtKey  = "AZBFGh8iPoKwXmYV46fUsJ9r";
         public static string ApiKeyName = "api_Key";
         public static string ApiKey = "aOGJKP[IJFE354==";
-        public static SmtpConfiguration Smtp = new SmtpConfiguration();
+        public static SmtpConfiguration Smtp = new();
         public class SmtpConfiguration
         {
             public string Host { get; set; }

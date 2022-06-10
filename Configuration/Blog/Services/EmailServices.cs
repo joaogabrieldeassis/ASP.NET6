@@ -5,7 +5,7 @@ namespace Blog.Services
 {
     public class EmailServices
     {
-        public bool Send(string toName, string toEmail,string subject, string body, string fromName = "João", string fromEmail = "j6524273@gmail.com")
+        public bool Send(string toName, string toEmail,string subject, string body, string fromName = "joao", string fromEmail = "joaoassisgabriel@gmail.com")
         {
             var stmpClient = new SmtpClient(Configuration.Smtp.Host, Configuration.Smtp.Port);
 

@@ -30,7 +30,7 @@ public class AccountController : ControllerBase
         {
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
-
+            
             email.Send(
                 user.Name,
                 user.Email,
@@ -40,7 +40,7 @@ public class AccountController : ControllerBase
 
             return Ok(new ResultViewModel<dynamic>(new
             {
-            user = user.Email,receivePassword
+            user = user.Email
             }));
         }
         catch (DbUpdateException )
