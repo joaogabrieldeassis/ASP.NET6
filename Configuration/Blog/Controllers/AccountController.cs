@@ -7,6 +7,7 @@ using Blog.ViewModel.Acoounts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
+using System.Text.RegularExpressions;
 
 namespace Blog.Controllers;
 
@@ -85,7 +86,40 @@ public class AccountController : ControllerBase
         }
     }
 
+    [HttpPost("v1/accounts/upload-image")]
+    public async Task<IActionResult> UploadImage([FromBody] UploadImageViewModel model, [FromServices] BlogDataContext context)
+    {
+        var fileName = $"{Guid.NewGuid().ToString()}";
+        var image = new Regex(@"^ data:image V[a-z]+;base64,").Replace(model.Base64Image, "");
+        var bytes = Convert.FromBase64String(image);
+        try
+        {
+            await System.IO.File.WriteAllBytesAsync($"wwwroot/images/{fileName}", bytes);
+        }
+        catch (Exception )
+        {
 
+            return StatusCode(500, new ResultViewModel<string>("443#-3 Falha interna no servidor"));
+        }
+        
+        var user = await context.Users.FirstOrDefaultAsync(x=>x.Email == User.Identity.Name);
+
+        if (user == null)
+            return NotFound(new ResultViewModel<string>("Usuario não encontrado"));
+        user.Image = $"http://localhost:0000/images/{fileName}";
+
+        try
+        {
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+
+            return StatusCode(500, new ResultViewModel<string>("Falha no servidor"));
+        }
+        return Ok(new ResultViewModel<string>("Imagem alterada com sucesso"));
+    }
 }
 
     /*[Authorize(Roles = "user")]
