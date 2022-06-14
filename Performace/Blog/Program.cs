@@ -56,6 +56,7 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
 //Método para Desabilitar a validação automatica da minha api
 void ConfigureMVC(WebApplicationBuilder builder)
 {
+    builder.Services.AddMemoryCache();
     builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
