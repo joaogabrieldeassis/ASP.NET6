@@ -2,8 +2,10 @@
 using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModel;
+using Blog.ViewModel.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Blog.Controllers
 {
@@ -14,14 +16,18 @@ namespace Blog.Controllers
 
         //Read
         [HttpGet("v1/categories")] //v1 = verssão 1 dp meu app
-        public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
+        public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context, [FromServices] IMemoryCache cache)
         {
             User.IsInRole("admin");
             
             try
             {
-                var categories = await context.Categories.ToListAsync();
-                //Vai retornar os dados do usuario da minha classe ResultViewModel
+                var categories = cache.GetOrCreate("CategoryCache", x =>
+                {
+                    x.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+                    return GetCategories(context);
+                });
+             
                 return Ok(new ResultViewModel<List<Category>>(categories));
             }
             catch 
@@ -31,7 +37,10 @@ namespace Blog.Controllers
             }
            
         }
-
+        private List<Category> GetCategories(BlogDataContext context)
+        {
+            return context.Categories.ToList();
+        }
         //Read
         [HttpGet("v1/categories/{id:int}")]
         public async Task<IActionResult> GetByIdAsync( [FromRoute] int id, [FromServices] BlogDataContext context)
