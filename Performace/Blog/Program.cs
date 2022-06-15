@@ -19,6 +19,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
+if (app.Environment.IsDevelopment())
+{
+    Console.WriteLine("Ambiente de desenvolvimento");
+}
 app.Run();
 
 //Método para configurar o meu appsettings.json
