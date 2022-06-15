@@ -27,8 +27,30 @@ namespace Blog.Controllers
 
             return Ok(new ResultViewModel<User>(userId));
         }
-        [HttpPost("v1/userupdate/id:int")]
-        public async Task<IActionResult> PostIdAsync([FromBody] )
+        [HttpDelete("v1/deletUser/id:int")]
+        public async Task<IActionResult> DeletUser([FromBody] int id, [FromServices] BlogDataContext context)
+        {
+            try
+            {
+                var deleteUser = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+                if (deleteUser == null)
+                    return NotFound(new ResultViewModel<User>("FGT4 - G Usuario não encontrado"));
+
+                context.Users.Remove(deleteUser);
+                await context.SaveChangesAsync();
+
+                return Ok(new ResultViewModel<User>(deleteUser));
+            }
+            catch (DbUpdateException )
+            {
+                return StatusCode(415, new ResultViewModel<User>("GHHY - 9 Falha ao excluir o usuario, verifique o Id inserido"));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new ResultViewModel<User>("F-5 Falha ao excluir o usuario"));
+            }
+        }
+        
     }
 
 }

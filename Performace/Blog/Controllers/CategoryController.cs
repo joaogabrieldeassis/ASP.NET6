@@ -138,11 +138,11 @@ namespace Blog.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(415, new ResultViewModel<Category>("SWE12-X Falaha ao escluir um usuario, verifique o Id inserido"));
+                return StatusCode(415, new ResultViewModel<Category>("SWE12-X Falaha ao escluir a categoria, verifique o Id inserido"));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Category>("D45T-F Falaha ao escluir um usuario "));
+                return StatusCode(500, new ResultViewModel<Category>("D45T-F Falaha ao excluir um usuario "));
             }
         }
 
