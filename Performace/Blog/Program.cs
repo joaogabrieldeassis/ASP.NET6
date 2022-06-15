@@ -2,6 +2,7 @@ using Blog;
 using Blog.DataContext;
 using Blog.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -14,12 +15,12 @@ ConfigureServices(builder);
 var app = builder.Build();
 LoadConfiguration(app);
 
-
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsProduction())
 {
     Console.WriteLine("Ambiente de desenvolvimento");
 }
@@ -76,7 +77,9 @@ void ConfigureMVC(WebApplicationBuilder builder)
 //Método para serviços Do banco e Token
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddDbContext<BlogDataContext>();
+    var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<BlogDataContext>(x=>
+     x.UseSqlServer(connection));
     builder.Services.AddTransient<TokenServices>();
     builder.Services.AddTransient<EmailServices>();
 }
